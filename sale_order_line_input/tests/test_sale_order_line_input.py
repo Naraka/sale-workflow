@@ -52,3 +52,26 @@ class TestSaleOrderLineInput(TransactionCase):
         new_sale_order_line._onchange_order_partner_id()
         self.assertEqual(new_sale_order_line.order_id.id, existing_order_id)
         self.assertEqual(new_sale_order_line.order_id.partner_id, self.partner_2)
+
+    def test_compute_name(self):
+        """Test `_compute_name` computes name correctly"""
+        sale_order = self.env["sale.order"].create({"partner_id": self.partner.id})
+        line = self.env["sale.order.line"].create(
+            {
+                "product_id": self.product.id,
+                "product_uom_qty": 1.0,
+                "price_unit": 50.0,
+                "name": "",
+                "order_id": sale_order.id,
+            }
+        )
+        line._compute_name()
+        self.assertEqual(line.order_id, sale_order, "Order ID should be set correctly")
+        self.assertIsNotNone(
+            line.order_id.partner_id, "Partner ID should be set correctly"
+        )
+        self.assertEqual(
+            line.order_id.partner_id,
+            self.partner,
+            "Order ID should be assigned correctly",
+        )

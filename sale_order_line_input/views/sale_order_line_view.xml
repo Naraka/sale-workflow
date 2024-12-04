@@ -5,11 +5,11 @@
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
     <record id="view_sales_order_line_input_tree" model="ir.ui.view">
-        <field name="name">sale.order.line.input.tree.</field>
+        <field name="name">sale.order.line.input.list.view</field>
         <field name="model">sale.order.line</field>
         <field name="priority">20</field>
         <field name="arch" type="xml">
-            <tree
+            <list
                 decoration-info="invoice_status == 'to invoice'"
                 decoration-warning="state == 'draft'"
                 decoration-muted="state == 'cancel'"
@@ -161,7 +161,7 @@
                 <field
                     name="product_packaging_id"
                     invisible="not product_id"
-                    context="{'default_product_id': product_id, 'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}"
+                    context="{'default_product_id': product_id, 'list_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}"
                     groups="product.group_stock_packaging"
                     optional="show"
                 />
@@ -178,7 +178,7 @@
                 <field
                     name="discount"
                     string="Disc.%"
-                    groups="product.group_discount_per_so_line"
+                    groups="sale.group_discount_per_so_line"
                     optional="show"
                 />
                 <field name="is_downpayment" column_invisible="1" />
@@ -200,7 +200,7 @@
                 <field name="price_tax" column_invisible="1" />
                 <field name="company_id" column_invisible="1" />
                 <field name="pricelist_id" column_invisible="1" />
-            </tree>
+            </list>
         </field>
     </record>
     <record id="view_sales_order_line_filter" model="ir.ui.view">
@@ -251,7 +251,7 @@
         <field name="name">Sales Orders Lines</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">sale.order.line</field>
-        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="view_mode">list,form,pivot,graph</field>
         <field name="view_id" ref="view_sales_order_line_input_tree" />
     </record>
     <menuitem
