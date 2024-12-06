@@ -16,7 +16,7 @@ class TestSaleStockPickingNote(common.TransactionCase):
             }
         )
         cls.product = cls.env["product.product"].create(
-            {"name": "Test product", "type": "product"}
+            {"name": "Test product", "type": "consu"}
         )
 
     def test_01_sale_to_picking_note(self):
